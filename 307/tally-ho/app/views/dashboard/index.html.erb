@@ -1,0 +1,17 @@
+<h1>DASHBOARD</h1>
+<section>
+    <div>
+        SOME AWESOME CHART
+    </div>
+    <table>
+        <% @course.each do |course| %>
+        <tr>
+            <td><%= course.name %></td>
+            <td><%= course.number %></td>
+            <td>
+                <a href="/delete-course/<%= course.id %>">DELETE</a>
+            </td>
+        </tr>
+        <% end %>
+    </table>
+</section>
