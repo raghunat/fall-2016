@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   # REMOVE
   get "/create-example-class", to: "dashboard#example_new"
+  get "/example-count/:courses_id/:users_id", to: "dashboard#create_counter"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

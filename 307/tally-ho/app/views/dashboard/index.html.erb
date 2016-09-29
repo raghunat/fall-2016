@@ -4,14 +4,29 @@
         SOME AWESOME CHART
     </div>
     <table>
-        <% @course.each do |course| %>
+        <% @courses.each do |course| %>
         <tr>
             <td><%= course.name %></td>
             <td><%= course.number %></td>
             <td>
                 <a href="/delete-course/<%= course.id %>">DELETE</a>
             </td>
+            <td>
+                <button id="tally-<%= course.id %>" onclick="tally(<%= course.id %>)">Tally</button>
+            </td>
         </tr>
         <% end %>
     </table>
 </section>
+<script type="text/javascript">
+    function tally(id) {
+        // $ = jquery
+        //
+        // $.get = makes a GET request to your server
+        $.get('example-count/' + id + '/1')
+          .success(function(counters){
+            $('#tally-' + id).html('Tally ' + counters.length);
+          })
+          .error(console.error);
+    }
+</script>
