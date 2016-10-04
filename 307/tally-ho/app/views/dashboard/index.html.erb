@@ -1,32 +1,28 @@
-<h1>DASHBOARD</h1>
-<section>
-    <div>
-        SOME AWESOME CHART
-    </div>
-    <table>
+<div id="dashboard">
+    <h1>DASHBOARD</h1>
+    <section>
+        <div>
+            SOME AWESOME CHART
+        </div>
         <% @courses.each do |course| %>
-        <tr>
-            <td><%= course.name %></td>
-            <td><%= course.number %></td>
-            <td>
-                <a href="/delete-course/<%= course.id %>">DELETE</a>
-            </td>
-            <td>
-                <button id="tally-<%= course.id %>" onclick="tally(<%= course.id %>)">Tally</button>
-            </td>
-        </tr>
+        <div class="course">
+            <div class="name"><%= course.name %></div>
+            <div class="number"><%= course.number %></div>
+            <div class="stat"><%= course.counters.size %></div>
+            <div class="actions">
+                <span>+</span>
+            </div>
+        </div>
         <% end %>
-    </table>
-</section>
-<script type="text/javascript">
-    function tally(id) {
-        // $ = jquery
-        //
-        // $.get = makes a GET request to your server
-        $.get('example-count/' + id + '/1')
-          .success(function(counters){
-            $('#tally-' + id).html('Tally ' + counters.length);
-          })
-          .error(console.error);
-    }
-</script>
+    </section>
+    <script type="text/javascript">
+        function tally(id) {
+            // $ = jquery
+            //
+            // $.get = makes a GET request to your server
+            $.get('example-count/' + id + '/1').success(function (counters) {
+                $('#tally-' + id).html('Tally ' + counters.length);
+            }).error(console.error);
+        }
+    </script>
+</div>
