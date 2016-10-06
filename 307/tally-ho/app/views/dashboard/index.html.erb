@@ -8,12 +8,16 @@
         <div class="course">
             <div class="name"><%= course.name %></div>
             <div class="number"><%= course.number %></div>
-            <div class="stat"><%= course.counters.size %></div>
+            <div id="tally-<%= course.id %>" class="stat"><%= course.counters.size %>
+                People</div>
             <div class="actions">
-                <span>+</span>
+                <button onclick="tally(<%= course.id %>)">+</button>
             </div>
         </div>
         <% end %>
+        <div class="text-center">
+            <a href="/add">Add New Course</a>
+        </div>
     </section>
     <script type="text/javascript">
         function tally(id) {
@@ -21,7 +25,7 @@
             //
             // $.get = makes a GET request to your server
             $.get('example-count/' + id + '/1').success(function (counters) {
-                $('#tally-' + id).html('Tally ' + counters.length);
+                $('#tally-' + id).html(counters.length + ' People');
             }).error(console.error);
         }
     </script>

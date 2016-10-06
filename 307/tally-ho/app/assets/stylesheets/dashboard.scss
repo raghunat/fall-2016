@@ -54,10 +54,22 @@
   }
   .actions {
     width: 20%;
-    span {
+    button {
       animation: change-color 1s ease-in infinite;
+      background-color: rgb(90, 236, 135);
+      border: none;
+      width: 80px;
+      height: 30px;
+
+      &:hover {
+        background-color: lighten(rgb(90, 236, 135), 30%);
+      }
     }
   }
+}
+
+.text-center {
+  text-align: center;
 }
 
 
@@ -67,10 +79,8 @@
   }
   50% {
     color: green;
-    font-size: 1.3em;
   }
   100% {
     color: black;
-    font-size: 1em;
   }
 }
