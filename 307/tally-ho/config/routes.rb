@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   get "/add", to: "courses#add"
 
   post "/save", to: "courses#save"
+  post "/login", to: "login#login"
+
+  get "/all-courses", to: "dashboard#all_courses"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

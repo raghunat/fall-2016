@@ -1,9 +1,9 @@
 <div id="dashboard">
     <h1>DASHBOARD</h1>
+    <div style="background: white; overflow:auto">
+        <canvas id="chart" height="200px"></canvas>
+    </div>
     <section>
-        <div>
-            SOME AWESOME CHART
-        </div>
         <% @courses.each do |course| %>
         <div class="course">
             <div class="name"><%= course.name %></div>
@@ -28,5 +28,51 @@
                 $('#tally-' + id).html(counters.length + ' People');
             }).error(console.error);
         }
+
+        var courses = <%= @courses.to_json(include: :counters).html_safe %>;
+
+        // Get the canvas
+        var context = document.querySelector("#chart");
+
+        // write a function to update the chart
+        function updateChart() {
+            // Holds the chart labels
+            var labels = courses.map((course) => course.name);
+            // holds the bars for each course
+            var dataSets = courses.map((course) => course.counters.length);
+
+            var chart = new Chart(context, {
+                options: {
+                    maintainAspectRatio: false
+                },
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Students Advised:',
+                            data: dataSets,
+                            backgroundColor: ["blue", "black", "green", "orange"]
+                        }
+                    ]
+                }
+            });
+        }
+
+        // Call the function the first time
+        updateChart();
+
+        // Every so often, get the latest counts, and update the courses array
+        setInterval(function () {
+            $.get('/all-courses').success(newCourses => {
+                courses = newCourses;
+                updateChart();
+            });
+        }, 5000);
     </script>
+</div>
+updateChart();
+</script>
+</div>
+>
 </div>

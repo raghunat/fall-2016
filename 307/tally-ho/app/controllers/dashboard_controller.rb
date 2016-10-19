@@ -33,8 +33,8 @@ class DashboardController < ApplicationController
   end
 
   # Update the view with the latest counts
-  def get_counts
-
+  def all_courses
+    render json: Course.all.to_json(include: :counters)
   end
 
   # Login
