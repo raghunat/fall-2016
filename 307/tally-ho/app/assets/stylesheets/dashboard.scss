@@ -15,16 +15,25 @@
   background: -webkit-linear-gradient(to left, #7b4397 , #dc2430); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to left, #7b4397 , #dc2430); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-
   h1 {
     height: 20%;
     margin: 0;
     text-align: right;
   }
   section {
+    position: absolute;
     overflow: auto;
     height: 80%;
+    width: 80%;
     top:20%;
+  }
+
+  #chart-container {
+    position: absolute;
+    top: 20%;
+    height: 80%;
+    width: 20%;
+    left: 80%;
   }
 }
 
@@ -54,7 +63,7 @@
   }
   .actions {
     width: 20%;
-    button {
+    button.add {
       animation: change-color 1s ease-in infinite;
       background-color: rgb(90, 236, 135);
       border: none;
@@ -64,6 +73,10 @@
       &:hover {
         background-color: lighten(rgb(90, 236, 135), 30%);
       }
+    }
+    button.remove {
+      background-color: red;
+      color: white;
     }
   }
 }

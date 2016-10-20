@@ -46,6 +46,18 @@ html, body {
     display: block;
     margin: auto;
   }
+
+  a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 8px;
+    color: gray;
+    &:visited {
+      color: gray
+    }
+  }
+
 }
 
 #about-us {
@@ -96,5 +108,35 @@ html, body {
   }
   100% {
     transform: rotate(-45deg);
+  }
+}
+
+
+
+// Register styles
+
+#register {
+  max-width: 500px;
+  margin: 50px auto;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 3px 3px 10px black;
+
+  input {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border: none;
+    margin-top: 24px;
+    font-size: 1.4em;
+    &[type=submit] {
+      box-shadow: 2px 2px 4px black;
+      width: 40%;
+      padding: 8px;
+      background: rgb(25, 53, 172);
+      color: white;
+      margin-left: 30%;
+      margin-bottom: 24px;
+    }
   }
 }

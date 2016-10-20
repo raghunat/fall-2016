@@ -1,5 +1,8 @@
 class DashboardController < ApplicationController
   def index
+    if session[:user].nil?
+      redirect_to '/'
+    end
     @courses = Course.all
   end
 
@@ -30,6 +33,12 @@ class DashboardController < ApplicationController
 
     # respond with the new count
     render json: counts
+  end
+
+  def remove_counter
+    counter = Counter.find_by_courses_id(params[:course_id])
+    counter.destroy
+    render json: Counter.where(courses_id: params[:course_id])
   end
 
   # Update the view with the latest counts

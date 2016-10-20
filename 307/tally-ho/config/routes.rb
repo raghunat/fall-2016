@@ -9,8 +9,12 @@ Rails.application.routes.draw do
   # REMOVE
   get "/create-example-class", to: "dashboard#example_new"
   get "/example-count/:courses_id/:users_id", to: "dashboard#create_counter"
-
+  get "/remove-counter/:course_id", to: "dashboard#remove_counter"
   get "/add", to: "courses#add"
+
+  get "/register", to: "login#register"
+  post "/create_user", to: "login#create_user"
+
 
   post "/save", to: "courses#save"
   post "/login", to: "login#login"

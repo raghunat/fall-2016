@@ -1,6 +1,6 @@
 <div id="dashboard">
     <h1>DASHBOARD</h1>
-    <div style="background: white; overflow:auto">
+    <div id='chart-container' style="background: white; overflow:auto">
         <canvas id="chart" height="200px"></canvas>
     </div>
     <section>
@@ -11,7 +11,8 @@
             <div id="tally-<%= course.id %>" class="stat"><%= course.counters.size %>
                 People</div>
             <div class="actions">
-                <button onclick="tally(<%= course.id %>)">+</button>
+                <button class="add" onclick="tally(<%= course.id %>)">+</button>
+                <button class="remove" onclick="unTally(<%= course.id %>)">-</button>
             </div>
         </div>
         <% end %>
@@ -20,6 +21,11 @@
         </div>
     </section>
     <script type="text/javascript">
+        function unTally(id) {
+            $.get('remove-counter/' + id).success(function (counters) {
+                $('#tally-' + id).html(counters.length + ' People');
+            });
+        }
         function tally(id) {
             // $ = jquery
             //
@@ -31,13 +37,15 @@
 
         var courses = <%= @courses.to_json(include: :counters).html_safe %>;
 
-        // Get the canvas
-        var context = document.querySelector("#chart");
-
         // write a function to update the chart
         function updateChart() {
+            // Get the canvas
+            var parent = document.querySelector('#chart-container');
+            parent.innerHTML = '<canvas id="chart"></canvas>';
+            var context = document.querySelector('#chart');
+
             // Holds the chart labels
-            var labels = courses.map((course) => course.name);
+            var labels = courses.map((course) => course.number);
             // holds the bars for each course
             var dataSets = courses.map((course) => course.counters.length);
 
@@ -45,7 +53,7 @@
                 options: {
                     maintainAspectRatio: false
                 },
-                type: 'bar',
+                type: 'horizontalBar',
                 data: {
                     labels: labels,
                     datasets: [
