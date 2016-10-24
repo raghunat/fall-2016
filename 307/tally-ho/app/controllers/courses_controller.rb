@@ -18,4 +18,12 @@ class CoursesController < ApplicationController
 
     redirect_to "/dashboard"
   end
+
+  def bootstrap
+    raw_courses = JSON.parse(File.read('app/assets/courses.json'))
+    raw_courses.each do |input|
+      Course.create(name: input['title'], number: input['number'].to_i, section: input['section'].to_i, max_students: input['max'].to_i)
+    end
+    redirect_to '/'
+  end
 end

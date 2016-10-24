@@ -43,6 +43,32 @@
         // holds the bars for each course
         var dataSets = courses.map((course) => course.counters.length);
 
+        /**
+         * Helper to darken pure colors for an easy gradient effect
+         * @param  {String} color   Hex Color
+         * @param  {Numebr} percent Percent to shade
+         * @return {String}         Hex Color
+         */
+        function shadeColor(color, percent) {
+            var f = parseInt(color.slice(1), 16),
+                t = percent < 0
+                    ? 0
+                    : 255,
+                p = percent < 0
+                    ? percent * -1
+                    : percent,
+                R = f >> 16,
+                G = f >> 8 & 0x00FF,
+                B = f & 0x0000FF;
+            return "#" + (0x1000000 + (Math.round((t - R) * p) + R) * 0x10000 + (Math.round((t - G) * p) + G) * 0x100 + (Math.round((t - B) * p) + B)).toString(16).slice(1);
+        }
+
+        var startShade = 1;
+        var colors = courses.map((c, i) => {
+            startShade -= 0.1;
+            return shadeColor('#0000FF', startShade);
+        });
+
         var chart = new Chart(context, {
             options: {
                 maintainAspectRatio: false,
@@ -70,7 +96,7 @@
                     {
                         label: 'Students Advised:',
                         data: dataSets,
-                        backgroundColor: courses.map((c, i) => {})
+                        backgroundColor: colors
                     }
                 ]
             }
@@ -89,6 +115,18 @@
                 updateChart();
             });
         }, 3000);
+    </script>
+
+    <script>
+        // This function is for web scraping banner for course information
+        function getCourses() {
+            var rows = Array.prototype.slice.call(document.querySelectorAll('tr[style="border-top: thin solid #333333"]'))
+            var items = rows.map(r => {
+                let cells = r.children;
+                return {crn: cells[0].innerText, number: cells[2].innerText, title: cells[5].innerText.trim(), max: cells[7].innerText, section: cells[3].innerText};
+            });
+            return items;
+        }
     </script>
 </div>
 updateChart();

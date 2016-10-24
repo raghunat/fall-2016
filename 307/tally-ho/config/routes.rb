@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   # REMOVE
   get "/create-example-class", to: "dashboard#example_new"
   get "/example-count/:courses_id/:users_id", to: "dashboard#create_counter"
+  get "/bootstrap", to: "courses#bootstrap"
   get "/remove-counter/:course_id", to: "dashboard#remove_counter"
   get "/add", to: "courses#add"
 
